@@ -1,0 +1,30 @@
+  
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/users/new.css" />
+<%= render '/layouts/nav'%>
+<div class="container">
+
+    <h2>Sign Up</h2>
+    <p>Please fill in this form to create an account</p>
+    <%= form_for @user do |f| %>
+        <div class="container">
+            <%= f.label "Username"%> <br>
+            <%=f.text_field :username%><br>
+
+            <%= f.label "Email"%> <br>
+            <%=f.text_field :email%><br>
+
+
+            <%= f.label "Password"%> <br>
+            <%=f.password_field :password%><br>
+
+            <%= f.label "Password Confirmation"%> <br>
+            <%=f.password_field :password_confirmation%><br>
+
+            <label for="user_admin">Check box if administrator </label>
+            <%= f.check_box  :admin %><br><br>
+
+            <%= f.submit "Sing Up", class: "loginbtn" %>
+        </div>
+    <%end%>
+</div>
+

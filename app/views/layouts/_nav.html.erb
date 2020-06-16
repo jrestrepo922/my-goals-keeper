@@ -1,0 +1,26 @@
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/navigation.css" />
+<ul>
+    <li><a href="<%= root_url %>">Home</a></li>
+        <% if logged_in?%>
+            <li><a  href="/genres">Genres</a></li>
+            <li><a  href="/wishlist/<%=current_user%>">Cart</a></li>
+            <li><a rel="nofollow" data-method="delete" href="/logout">Log Out</a> </li>
+            
+        <% else%>
+            <li><a  href="/signup">Sign Up</a></li>
+            <li><a  href="/signin">Log in</a></li>
+        <% end%>
+</ul>
+
+
+
+    
+
+    
+
+
+
+
+
+    
+    

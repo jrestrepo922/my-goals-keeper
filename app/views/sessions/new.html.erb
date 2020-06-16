@@ -1,0 +1,22 @@
+  
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/users/new.css" />
+<%= render '/layouts/nav'%>
+<div class="container">
+
+    <h2>Login to Your Account</h2>
+    <%= form_for @user, url: sessions_path, method: :post  do |f| %>
+        <div class="container">
+            <%= f.label "Username"%> <br>
+            <%=f.text_field :username%><br>
+
+            <%= f.label "Password"%> <br>
+            <%=f.password_field :password%><br>
+
+            <%= f.submit "Log In", class: "loginbtn" %>
+        </div>
+    <%end%>
+</div>
+
+<div class="container signin">
+    <p><%= link_to "Log in with Github!", '/auth/github' %></p>
+</div>
