@@ -3,8 +3,18 @@
     <ul>
         <li><a href="<%= root_url %>">Home</a></li>
             <% if logged_in?%>
-                <li><a  href="/genres">Genres</a></li>
-                <li><a  href="/wishlist/<%=current_user%>">Cart</a></li>
+                <%if !current_user%>
+                    <li><a  href="/genres">Genres</a></li>
+                    <li><a  href="/wishlist/<%=current_user%>">Cart</a></li>
+                <% elsif current_user.admin %>
+                    <li><a  href="/genres">Video Games</a></li>
+                    <li><a  href="">Add Video Game</a></li>                   
+                <% else %>
+                    <li><a  href="/genres">Genres</a></li>
+                    <li><a  href="/wishlist/<%=current_user%>">Cart</a></li>
+                <%end%>
+
+
                 <li><a rel="nofollow" data-method="delete" href="/logout">Log Out</a> </li>
                 
             <% else%>

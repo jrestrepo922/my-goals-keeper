@@ -12,13 +12,12 @@ Rails.application.routes.draw do
 
   # This for the admin to create or select a new genre
   # This also allows the admin to create a new game, edit game, delete game
-  resources :genres, only: [:new, :create] do 
-    resources :products, only:[:new, :create, :edit, :update, :destroy]
+  resources :genres, only: [:show, :new, :create] do 
+    resources :products, only:[:new, :create, :edit, :update, :destroy, :index, :show]
   end
 
   #this is for the user that come to shop
   resources :genres, only: [:index]
-  resources :products, only: [:index, :show]
   resources :wishlist, only: [:show, :delete]
 
   #omniauth 
