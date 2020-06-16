@@ -18,7 +18,8 @@ class SessionsController < ApplicationController
                 end
 
             else 
-                redirect_to new_user_path
+                flash[:errors] = "Username/password is invalid"
+                redirect_to signin_path
             end 
         else 
             @user = User.find_or_create_by(id: auth['uid']) do |u|

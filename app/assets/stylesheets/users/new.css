@@ -4,6 +4,25 @@
     box-sizing: border-box;
   }
   
+
+    /* Error messages  */
+
+    .field_with_errors {
+      padding: 2px;
+      background-color: red;
+      display: table;
+      width: 100%;
+  }
+  
+  #error_explanation {
+      width: 450px;
+      border: 2px solid red;
+      padding: 7px 7px 0;
+      margin-bottom: 20px;
+      background-color: white;
+  }
+
+
   /* Add padding to containers */
   .container {
     padding: 16px;
@@ -55,3 +74,8 @@
     text-align: center;
     margin: 0px 30px;
   }
+
+
+
+
+

@@ -1,6 +1,14 @@
   
 <link rel = "stylesheet" type = "text/css" href = "/stylesheets/users/new.css" />
 <%= render '/layouts/nav'%>
+
+<% if flash[:errors] %>
+  <div id="error_explanation">
+    <h2><%= flash[:errors]%></h2>
+  </div>
+<% end %>
+
+
 <div class="container">
 
     <h2>Login to Your Account</h2>
