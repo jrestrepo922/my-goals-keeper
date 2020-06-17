@@ -10,15 +10,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   get "signin", to: "sessions#new"
 
-  # This for the admin to create or select a new genre
-  # This also allows the admin to create a new game, edit game, delete game
-  resources :genres, only: [:show, :new, :create] do 
-    resources :products, only:[:new, :create, :edit, :update, :destroy, :index, :show]
-  end
 
-  #this is for the user that come to shop
-  resources :genres, only: [:index]
-  resources :wishlist, only: [:show, :delete]
 
   #omniauth 
   get '/auth/:provider/callback', to: 'sessions#create'

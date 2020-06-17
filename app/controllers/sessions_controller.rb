@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
                 return head(:forbidden) unless @user.authenticate(params[:user][:password])
                 session[:user_id] = @user.id 
                 if @user.admin 
-                    redirect_to products_path 
+                    redirect_to "/genres"
                 else 
                     redirect_to "/genres"
                 end
