@@ -1,0 +1,33 @@
+
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/goals/show.css" />
+<%= render "layouts/nav"%>
+
+
+
+
+
+<div class="row">
+
+  
+<div class="column">
+    <div class="card">
+        <h2><%=@goal.name%></h2>
+        <br>
+        <h3>Goal Details</h3> 
+        <p><%=@goal.details%></p>
+        <br>
+        <% if @goal.completed%>
+            <p>Status: Complete</p>
+        <% else%>
+            <p>Status: Incomplete</p>
+        <% end%>
+
+        <br>
+
+        <%= link_to "Edit", edit_category_goal_path(@goal.category.id, @goal.id) %>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+        <a rel="nofollow" data-method="delete" href="/categories/<%=@goal.category.id%>/goals/<%=@goal.id%>">Delete</a>
+        
+    </div>
+</div> 
+  
+      

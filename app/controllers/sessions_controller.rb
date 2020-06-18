@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
     def new 
-        @user = User.new
+        if logged_in? 
+            redirect_to categories_path
+        else 
+            @user = User.new 
+        end 
     end 
     
     
@@ -11,11 +15,7 @@ class SessionsController < ApplicationController
             if @user
                 return head(:forbidden) unless @user.authenticate(params[:user][:password])
                 session[:user_id] = @user.id 
-                if @user.admin 
-                    redirect_to "/genres"
-                else 
-                    redirect_to "/genres"
-                end
+                redirect_to categories_path
 
             else 
                 flash[:errors] = "Username/password is invalid"
@@ -27,8 +27,7 @@ class SessionsController < ApplicationController
                 u.email = auth['info']['email']
             end  
             session[:user_id] = @user.id
-
-            redirect_to  "/genres"
+            redirect_to categories_path
         end 
     end 
 

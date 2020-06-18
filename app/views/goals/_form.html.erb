@@ -1,0 +1,13 @@
+    <%= form_for @goal do |f| %>
+        <div class="container">
+          <%= f.label "Goal Name"%><br>
+          <%= f.text_field :name%><br>
+              
+          <%= f.label "Goal Details"%><br>
+          <%= f.text_area :details%><br>
+
+          <%= f.hidden_field :category_id, :value => @category.id%>
+                  
+            <%= f.submit "Add Goal", class: "loginbtn" %>
+        </div>
+    <%end%>

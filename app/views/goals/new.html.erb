@@ -1,0 +1,23 @@
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/categories/new.css" />
+<%= render '/layouts/nav'%>
+
+
+<% if flash[:errors] %>
+  <div id="error_explanation">
+    <h2><%= pluralize(flash[:errors].count, "error") %> prohibited this article from being saved:</h2>
+ 
+    <ul>
+    <% flash[:errors].each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+<div class="container">
+
+    <h2>Create a new Goal in the <%=@category.name%> Category</h2>
+    <p>Please fill in this form to create goal in <%=@category.name%> Category</p>
+    <%= render "form" %>

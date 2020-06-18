@@ -1,0 +1,41 @@
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/categories/new.css" />
+<%= render '/layouts/nav'%>
+
+
+<% if flash[:errors] %>
+  <div id="error_explanation">
+    <h2><%= pluralize(flash[:errors].count, "error") %> prohibited this article from being saved:</h2>
+ 
+    <ul>
+    <% flash[:errors].each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+<div class="container">
+
+    <h2>Create New Category and Goal</h2>
+    <p>Please fill in this form to create a new category and goal</p>
+    <%= form_for @goal do |f| %>
+        <div class="container">
+            
+          <%= f.label "Goal Name"%><br>
+          <%= f.text_field :name%><br>
+              
+          <%= f.label "Goal Details"%><br>
+          <%= f.text_area :details%><br>
+
+        <h2> Choose from existing Category or Make a new category </h2>
+            <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: true %>       
+            <%= f.fields_for :category, @category do |cf| %>
+              <%= cf.label "Category Name"%> <br>
+              <%= cf.text_field :name%><br>
+            <%end%>
+            
+            <%= f.submit "Add Goal", class: "loginbtn" %>
+        </div>
+    <%end%>

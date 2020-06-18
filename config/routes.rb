@@ -11,6 +11,17 @@ Rails.application.routes.draw do
   get "signin", to: "sessions#new"
 
 
+  #nested routes
+  resources :categories, only: [:index] do 
+    resources :goals, only: [:new, :create, :edit, :update, :destroy, :index, :show]
+  end 
+
+  #new and index require 2 views for each 
+    #one is for the nested routes and the other ones for not nested
+
+  resources :goals, only: [:new, :create, :index]
+  
+ 
 
   #omniauth 
   get '/auth/:provider/callback', to: 'sessions#create'

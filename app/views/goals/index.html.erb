@@ -1,0 +1,30 @@
+<link rel = "stylesheet" type = "text/css" href = "/stylesheets/goals/index.css" />
+<%= render "layouts/nav"%>
+
+
+
+
+<h1> <%= @category.name %></h1> 
+<div class="row">
+
+  <% @goals.each do |goal|%>  
+    <div class="column">
+        <div class="card">
+            <h2><%= link_to goal.name, category_goal_path(goal.category.id, goal.id) %></h2>
+            <br>
+            <% if goal.completed%>
+                <p>Status: Complete</p>
+            <% else%>
+                <p>Status: Incomplete</p>
+            <% end%>
+        </div>
+    </div> 
+  <%end%>
+      
+  
+</div>
+
+<br><br><br>
+<div>
+    <%=link_to "Add a new Goal", new_category_goal_path(@category.id) %>
+</div>
