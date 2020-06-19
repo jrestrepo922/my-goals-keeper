@@ -47,14 +47,22 @@ class GoalsController < ApplicationController
 
     def create 
         # need to deal if we create or find the category
+        
         if logged_in?
-            goal = current_user.goals.build(goal_params)
+            if !params[:goal][:category_attributes][:name].empty? && !params[:goal][:category_id].empty?
+                params[:goal][:category_attributes][:name] = ""
+                goal = current_user.goals.build(goal_params)
+            else 
+                goal = current_user.goals.build(goal_params)
+            end   
+
             if goal.save 
                 redirect_to category_goal_path(goal.category.id, goal.id)
             else 
                 # need to add validations to this form 
-
-                redirect_to goals_new_path
+                binding.pry 
+                flash[:errors] = goal.errors.full_messages
+                redirect_to new_goal_path
             end 
         else 
             redirect_to signin_path

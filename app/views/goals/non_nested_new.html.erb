@@ -18,7 +18,7 @@
 
 <div class="container">
 
-    <h2>Create New Category and Goal</h2>
+    <h2>Create a New Goal that belongs to a New or Existing Category</h2>
     <p>Please fill in this form to create a new category and goal</p>
     <%= form_for @goal do |f| %>
         <div class="container">
@@ -29,8 +29,10 @@
           <%= f.label "Goal Details"%><br>
           <%= f.text_area :details%><br>
 
-        <h2> Choose from existing Category or Make a new category </h2>
-            <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: true %>       
+        <h2> Choose from existing Category </h2>
+            <%= f.label "Category"%><br>
+            <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: true %>
+        <h2> or Make a new category </h2>
             <%= f.fields_for :category, @category do |cf| %>
               <%= cf.label "Category Name"%> <br>
               <%= cf.text_field :name%><br>
