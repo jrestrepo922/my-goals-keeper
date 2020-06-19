@@ -20,4 +20,19 @@
 
     <h2>Edit Goal in the <%=@category.name%> Category</h2>
     <p>Please fill in this form to Edit a goal in <%=@category.name%> Category</p>
-    <%= render "form" %>
+    <%= form_tag "/categories/#{@category.id}/goals/#{@goal.id}", method: "patch" do %>
+          <%= label_tag "Goal Name"%><br>
+          <%= text_field_tag name="goal[name]", @goal.name%><br>
+              
+          <%= label_tag "Goal Details"%><br>
+          <%= text_field_tag name="goal[details]", @goal.details %><br>
+
+          <% if !@goal.completed %>
+            <%= label_tag "Completed?: "%>
+            <%= check_box_tag "goal[completed]" %><br>
+          <%end%>
+
+          <%= hidden_field_tag "goal[category_id]", "#{@category.id}"%>
+                  
+          <%= submit_tag "Edit Goal", class: "loginbtn" %>
+    <%end%>

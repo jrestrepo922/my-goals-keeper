@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
 
   #nested routes
-  resources :categories, only: [:index] do 
-    resources :goals, only: [:new, :create, :edit, :update, :destroy, :index, :show]
+  resources :categories, only: [:index, :destroy] do 
+    resources :goals, only: [:new, :create, :edit, :update, :index, :show]
   end 
 
   #new and index require 2 views for each 

@@ -5,10 +5,11 @@ class GoalsController < ApplicationController
         if logged_in?
             if params[:category_id]
                 @category = current_user.categories.find_by_id(params[:category_id])
-                @goals = @category.goals
+
+                @goals = @category.goals.where(user_id: current_user.id)
 
             else 
-                @goals = current_user.goals 
+                @goals = current_user.goals.where(user_id: current_user.id) 
                 render "non_nested_index"
             end 
         else 
@@ -62,9 +63,10 @@ class GoalsController < ApplicationController
 
     def edit
         if logged_in?
-            binding.pry
+             
             @goal = current_user.goals.find_by_id(params[:id])
             @category = current_user.categories.find_by_id(params[:category_id])
+            
         else 
             redirect_to signin_path
         end 
@@ -72,19 +74,22 @@ class GoalsController < ApplicationController
 
     def update
         if logged_in?
-           
+            @goal = current_user.goals.find_by_id(params[:id])
+            @goal.update(goal_params)
+            if @goal.valid?
+                redirect_to category_goal_path(@goal.category.id, @goal.id)
+            else 
+                # need to add validations to this form 
+
+                redirect_to goals_new_path
+            end 
         else 
+            #need to add error messages. 
             redirect_to signin_path
         end 
     end 
 
-    def delete
-        if logged_in?
-            
-        else 
-            redirect_to signin_path
-        end 
-    end
+
 
     private 
 
