@@ -1,5 +1,7 @@
 class GoalsController < ApplicationController
 
+    before_action :get_goal, only:[:show, :edit, :update]
+
     def index
 
         if logged_in?
@@ -20,7 +22,7 @@ class GoalsController < ApplicationController
 
     def show
         if logged_in?
-           @goal = current_user.goals.find_by_id(params[:id])
+        #    @goal = current_user.goals.find_by_id(params[:id])
         else 
             redirect_to signin_path
         end 
@@ -46,7 +48,6 @@ class GoalsController < ApplicationController
     end 
 
     def create 
-        # need to deal if we create or find the category
         
         if logged_in?
             if !params[:goal][:category_attributes][:name].empty? && !params[:goal][:category_id].empty?
@@ -71,7 +72,7 @@ class GoalsController < ApplicationController
     def edit
         if logged_in?
              
-            @goal = current_user.goals.find_by_id(params[:id])
+            # @goal = current_user.goals.find_by_id(params[:id])
             @category = current_user.categories.find_by_id(params[:category_id])
             
         else 
@@ -81,7 +82,7 @@ class GoalsController < ApplicationController
 
     def update
         if logged_in?
-            @goal = current_user.goals.find_by_id(params[:id])
+            # @goal = current_user.goals.find_by_id(params[:id])
             @goal.update(goal_params)
             if @goal.valid?
                 redirect_to category_goal_path(@goal.category.id, @goal.id)
@@ -106,5 +107,9 @@ class GoalsController < ApplicationController
         params.require(:goal).permit(:name, :details, :completed, :category_id, category_attributes: [
             :name
         ])
+    end 
+
+    def get_goal
+        @goal = current_user.goals.find_by_id(params[:id])
     end 
 end
