@@ -17,8 +17,10 @@ class UsersController < ApplicationController
                 session[:user_id] = @user.id 
                 redirect_to categories_path
             else 
-                flash[:errors] = @user.errors.full_messages.uniq
-                redirect_to signup_path
+                # flash[:errors] = @user.errors.full_messages.uniq
+                # redirect_to signup_path
+
+                render '/users/new'
             end 
         end 
     end

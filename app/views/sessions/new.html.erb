@@ -15,8 +15,9 @@
     <%= form_for @user, url: sessions_path, method: :post  do |f| %>
         <div class="container">
             <%= f.label "Username"%> <br>
+            
             <%=f.text_field :username%><br>
-
+           
             <%= f.label "Password"%> <br>
             <%=f.password_field :password%><br>
 

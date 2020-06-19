@@ -59,10 +59,9 @@ class GoalsController < ApplicationController
             if goal.save 
                 redirect_to category_goal_path(goal.category.id, goal.id)
             else 
-                # need to add validations to this form 
-                binding.pry 
                 flash[:errors] = goal.errors.full_messages
                 redirect_to new_goal_path
+
             end 
         else 
             redirect_to signin_path
@@ -88,8 +87,9 @@ class GoalsController < ApplicationController
                 redirect_to category_goal_path(@goal.category.id, @goal.id)
             else 
                 # need to add validations to this form 
-
-                redirect_to goals_new_path
+                flash[:errors] = @goal.errors.full_messages
+                
+                redirect_to edit_category_goal_path(@goal.category.id, @goal.id)
             end 
         else 
             #need to add error messages. 
