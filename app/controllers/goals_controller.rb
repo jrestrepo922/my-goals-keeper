@@ -5,15 +5,23 @@ class GoalsController < ApplicationController
     def index
 
         if logged_in?
+            
+        
             if params[:category_id]
-                @category = current_user.categories.find_by_id(params[:category_id])
+                #user try to change the path
+                if !current_user.categories.find_by_id(params[:category_id])
 
-                @goals = @category.goals.where(user_id: current_user.id)
+                    redirect_to root_path
+                else 
+                    @category = current_user.categories.find_by_id(params[:category_id])
+                    @goals = @category.goals.where(user_id: current_user.id)
+                end 
 
             else 
                 @goals = current_user.goals.where(user_id: current_user.id) 
                 render "non_nested_index"
             end 
+            
         else 
             redirect_to signin_path
         end 
@@ -21,11 +29,16 @@ class GoalsController < ApplicationController
 
 
     def show
-        if logged_in?
-        #    @goal = current_user.goals.find_by_id(params[:id])
+        if !current_user.goals.find_by_id(params[:id]) || !current_user.categories.find_by_id(params[:category_id])
+            redirect_to root_path
         else 
-            redirect_to signin_path
+            if logged_in?
+                #    @goal = current_user.goals.find_by_id(params[:id])
+                else 
+                    redirect_to signin_path
+                end            
         end 
+
     end 
 
     def new 
@@ -93,7 +106,7 @@ class GoalsController < ApplicationController
                 redirect_to edit_category_goal_path(@goal.category.id, @goal.id)
             end 
         else 
-            #need to add error messages. 
+            
             redirect_to signin_path
         end 
     end 
