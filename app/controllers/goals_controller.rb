@@ -44,6 +44,7 @@ class GoalsController < ApplicationController
     def new 
 
         if logged_in?
+
             if params[:category_id]
 
                 if !current_user.categories.find_by_id(params[:category_id])
@@ -109,10 +110,12 @@ class GoalsController < ApplicationController
 
     def edit
         if logged_in?
-             
+            if !current_user.goals.find_by_id(params[:id]) || !current_user.categories.find_by_id(params[:category_id])
+                redirect_to root_path
+            else 
             # @goal = current_user.goals.find_by_id(params[:id])
             @category = current_user.categories.find_by_id(params[:category_id])
-            
+            end 
         else 
             redirect_to signin_path
         end 
