@@ -46,12 +46,13 @@ class GoalsController < ApplicationController
         if logged_in?
 
             if params[:category_id]
-
+                # if the category id does not belong to the user than redirect to begining
                 if !current_user.categories.find_by_id(params[:category_id])
                     redirect_to root_path
                 else 
                     @goal = current_user.goals.build
                     @category = current_user.categories.find_by_id(params[:category_id])
+ 
                 end   
             else 
                 @goal = current_user.goals.build
@@ -68,8 +69,7 @@ class GoalsController < ApplicationController
     def create 
         
         if logged_in?
-
-            if params[:category_id] 
+            if params[:goal][:category_attributes]
                 # if both are selected, the create and Existing 
                 if !params[:goal][:category_attributes][:name].empty? && !params[:goal][:category_id].empty?
                     params[:goal][:category_attributes][:name] = ""
@@ -78,7 +78,7 @@ class GoalsController < ApplicationController
                         redirect_to category_goal_path(goal.category.id, goal.id)
                     else 
                         flash[:errors] = goal.errors.full_messages
-                        redirect_to new_goal_path
+                        redirect_to new_category_goal_path(goal.category.id)
                     end
                 # if one is empty from create or Existing 
                 else 
@@ -91,15 +91,15 @@ class GoalsController < ApplicationController
                         redirect_to new_goal_path
                     end 
                 end   
-            #this one is for the nested form create that does not need a category Id     
-            else !params[:category_id] 
+            #this one is for the nested form create that does not need a category Id     !params[:category_id] 
+            else 
                 goal = current_user.goals.build(goal_params)
 
                 if goal.save 
                     redirect_to category_goal_path(goal.category.id, goal.id)
                 else 
                     flash[:errors] = goal.errors.full_messages
-                    redirect_to new_goal_path
+                    redirect_to new_category_goal_path(goal.category.id)
                 end 
             end 
 
@@ -107,6 +107,7 @@ class GoalsController < ApplicationController
             redirect_to signin_path
         end 
     end 
+    
 
     def edit
         if logged_in?
@@ -130,7 +131,6 @@ class GoalsController < ApplicationController
             else 
                 # need to add validations to this form 
                 flash[:errors] = @goal.errors.full_messages
-                
                 redirect_to edit_category_goal_path(@goal.category.id, @goal.id)
             end 
         else 

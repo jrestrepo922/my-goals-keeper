@@ -22,10 +22,12 @@
     <p>Please fill in this form to create a new category and goal</p>
     <%= form_for @goal do |f| %>
         <div class="container">
-            
+          
           <%= f.label "Goal Name"%><br>
+         
+          
           <%= f.text_field :name%><br>
-              
+          
           <%= f.label "Goal Details"%><br>
           <%= f.text_area :details%><br>
 
@@ -41,3 +43,4 @@
             <%= f.submit "Add Goal", class: "loginbtn" %>
         </div>
     <%end%>
+
