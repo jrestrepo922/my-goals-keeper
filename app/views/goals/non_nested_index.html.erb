@@ -8,7 +8,7 @@
 <h1> Goals </h1> 
 <div class="row">
 
-  <% @goals.each do |goal|%>  
+  <% @completedgoals.each do |goal|%>  
     <div class="column">
         <div class="card">
             <h2><%= link_to goal.name, category_goal_path(goal.category.id, goal.id) %></h2>

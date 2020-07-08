@@ -2,6 +2,8 @@ class GoalsController < ApplicationController
 
     before_action :get_goal, only:[:show, :edit, :update]
 
+
+
     def index
 
         if logged_in?
@@ -14,12 +16,16 @@ class GoalsController < ApplicationController
                     redirect_to root_path
                 else 
                     @category = current_user.categories.find_by_id(params[:category_id])
+                    
                     @goals = @category.goals.where(user_id: current_user.id)
                 end 
 
             else 
+                
                 @goals = current_user.goals.where(user_id: current_user.id) 
+                @completedgoals = @goals.completed_goals
                 render "non_nested_index"
+                
             end 
             
         else 
